@@ -8,38 +8,38 @@ import axios from '../axios';
 
 class NavBar extends Component {
 
-    state={
-        products:[],
-        orders:[],
-        productSearch:'',
-        orderSearch:''
+    state = {
+        products: [],
+        orders: [],
+        productSearch: '',
+        orderSearch: ''
     }
 
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         })
-        if(event.target.name==='productSearch'){
-            if(event.target.value!==''){
+        if (event.target.name === 'productSearch') {
+            if (event.target.value !== '') {
                 axios.get(`/product/list?pageNumber=1&pageSize=5&keyword=${event.target.value}`)
-                .then(data => {
-                    this.setState({
-                        products:data.data.data.recordset
+                    .then(data => {
+                        this.setState({
+                            products: data.data.data.recordset
+                        })
                     })
-                })
-                .catch(err => console.log(err))
-            } else{
-                this.setState({products:[]})
+                    .catch(err => console.log(err))
+            } else {
+                this.setState({ products: [] })
             }
-        } else if(event.target.name==='orderSearch'){
-            
+        } else if (event.target.name === 'orderSearch') {
+
         }
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        if(this.state.orderSearch!==''){
-            window.location.href=`/order/list/${this.state.orderSearch}`
+        if (this.state.orderSearch !== '') {
+            window.location.href = `/order-detail/${this.state.orderSearch}`
         }
     }
 
@@ -47,17 +47,39 @@ class NavBar extends Component {
         localStorage.removeItem("username")
         localStorage.removeItem('cart')
         this.props.username = null
-        window.location.href='/'
+        window.location.href = '/'
     }
 
-    componentDidUpdate(){
+    componentDidMount() {
         axios.get(`/product/best-seller`)
-        .then(data => {
-            this.setState({
-                products: data.data.data.recordset
+            .then(data => {
+                this.setState({
+                    products: data.data.data.recordset
+                })
             })
-        })
-        .catch(err => console.log(err));
+            .catch(err => console.log(err));
+    }
+
+    viewCart = (event) => {
+        event.preventDefault();
+        const username = localStorage.getItem('username');
+        if (username) {
+            window.location.href = '/cart';
+        }
+        else {
+            alert('You must log in first');
+        }
+    }
+
+    viewOrder = (event) => {
+        event.preventDefault();
+        const username = localStorage.getItem('username');
+        if (username) {
+            window.location.href = '/order-list';
+        }
+        else {
+            alert('You must log in first');
+        }
     }
 
     render() {
@@ -69,11 +91,11 @@ class NavBar extends Component {
             </a>
         )) : ''
         const displayItems = this.props.products ? this.props.products.map(item => (
-            <div key={item.ProductID} className="list-item-left">
+            <div className="list-item-left">
                 <a key={item.ProductID} href={`/product/${item.ProductID}`}>
                     <div key={item.ProductID} className="list-item-right">
                         <i className="fas fa-times" area-hidden="true"></i>
-                        <img src={`http://localhost:5000/image/products/${item.Image}.png`} alt={item.Name}/>
+                        <img src={`http://localhost:5000/image/products/${item.Image}.png`} alt={item.Name} />
                         <div className="content-item-order">
                             <h3>{item.Name}</h3>
                             <p>{item.Price}đ*{item.Quantity}</p>
@@ -94,7 +116,7 @@ class NavBar extends Component {
                         <div className="sign-in-icon">
                             <i className="fas fa-sign-in-alt"></i>
                         </div>
-                        <div className="sign-in-text">Sign in</div>
+                        <div className="sign-in-text">Đăng nhập</div>
                     </div>
                 </a>
             )
@@ -104,18 +126,18 @@ class NavBar extends Component {
                     <div className="sign-up-icon">
                         <i className="far fa-user"></i>
                     </div>
-                    <div className="sign-in-text">Welcome,{username}</div>
+                    <div className="sign-in-text">Chào mừng, {username}</div>
                 </div>
             )
         if (username == null)
             SignUp = (
                 <a href="/signup">
-                <div className="sign-up">
-                    <div className="sign-up-icon">
-                        <i className="far fa-user"></i>
+                    <div className="sign-up">
+                        <div className="sign-up-icon">
+                            <i className="far fa-user"></i>
+                        </div>
+                        <div className="sign-up-text">Đăng ký</div>
                     </div>
-                    <div className="sign-up-text">Sign up</div>
-                </div>
                 </a>
             )
         if (username != null)
@@ -125,17 +147,17 @@ class NavBar extends Component {
                         <div className="sign-in-icon">
                             <i className="fas fa-sign-in-alt"></i>
                         </div>
-                        <div className="sign-up-text">Log Out</div>
+                        <div className="sign-up-text">Đăng xuất</div>
                     </div>
                 </a>
-            )       
+            )
         return (
             <div className='header-container'>
                 <div className="header">
                     <div className="top-header">
                         <div className="support">
                             <i className="fas fa-headset"></i>
-                            <span className="title-support">Support</span>
+                            <span className="title-support">Điện thoại hỗ trợ</span>
                             <span className="phone-support">19001009</span>
                             <span className="support">|</span>
                             <span>
@@ -155,39 +177,57 @@ class NavBar extends Component {
                     <div className="bottom-header">
                         <div className="logo">
                             <a href="/">
-                                <img src={logo} alt="logo"/>
+                                <img src={logo} alt="logo" />
                             </a>
-                            
+
                         </div>
                         <div className="nav">
                             <ul className="nav-ul">
-                                <li><a href="/"><b>HOME</b></a></li>
+                                <li><a href="/"><b>TRANG CHỦ</b></a></li>
                                 <li><a href='/'>
                                     <b>MENU</b>
                                     <i className="fas fa-sort-down"></i>
                                     <div id="sub-nav">
                                         <div className="sub-nav-item-container">
                                             <div className="sub-nav-item">
-                                                <a href='/menuPizza'><img src={pizza} alt=""/></a>
+                                                <a href='/menuPizza'><img src={pizza} alt="" style={{
+                                                    backgroundPosition: 'center',
+                                                    backgroundRepeat: 'no-repeate',
+                                                    height: '90px',
+                                                    width: '90px'
+                                                }} /></a>
                                                 <span>Pizza</span>
                                             </div>
                                             <div className="sub-nav-item">
-                                                <a href='/menuBurger'><img src={burger} alt=""/></a>
+                                                <a href='/menuBurger'><img src={burger} alt=""
+                                                    style={{
+                                                        backgroundPosition: 'center',
+                                                        backgroundRepeat: 'no-repeate',
+                                                        height: '90px',
+                                                        width: '90px'
+                                                    }} />
+                                                </a>
                                                 <span>Hamburger</span>
                                             </div>
                                             <div className="sub-nav-item">
-                                                <a href='/menuMilktea'><img src={milktea} alt=""/></a>
+                                                <a href='/menuMilktea'><img src={milktea} alt=""
+                                                    style={{
+                                                        backgroundPosition: 'center',
+                                                        backgroundRepeat: 'no-repeate',
+                                                        height: '90px',
+                                                        width: '90px'
+                                                    }} /></a>
                                                 <span>Milk Tea</span>
                                             </div>
                                         </div>
                                     </div>
                                 </a></li>
-                                <li><a href="/order-list" target="__blank"><b>ORDER</b></a></li>
+                                <li><a href="#" onClick={this.viewOrder}><b>ĐƠN HÀNG</b></a></li>
                             </ul>
                         </div>
 
                         <form autoComplete='Off' className="input-form">
-                            <input type="text" name="productSearch" id="productSearch" onChange={this.handleChange} placeholder="Search for products"/>
+                            <input type="text" name="productSearch" id="productSearch" onChange={this.handleChange} placeholder="Tìm kiếm sản phẩm" />
                             <div className='search-container-1'>
                                 {prefix}
                             </div>
@@ -196,7 +236,7 @@ class NavBar extends Component {
                                     <i className="fas fa-search search-icon"></i>
                                 </button>
                             </a>
-                            <input type="text" name="orderSearch" id="orderSearch" onChange={this.handleChange} placeholder="Search for orders"/>
+                            <input type="text" name="orderSearch" id="orderSearch" onChange={this.handleChange} placeholder="Tìm kiếm đơn hàng" />
                             <a href='/order-detail'>
                                 <button className="i-1" onClick={(e) => this.handleSubmit(e)}>
                                     <i className="fas fa-search search-icon"></i>
@@ -216,16 +256,18 @@ class NavBar extends Component {
                             </div>
                         </div> */}
                         <div className="cart">
-                            <div className="ic-cart">
-                                    <a href='/cart'><i className="fas fa-cart-plus"></i></a>
+                            <div className="ic-cart" >
+                                <a href="#" onClick={this.viewCart}>
+                                    <i className="fas fa-cart-plus"></i>
                                     <span className="number-cart">{this.props.count}</span>
+                                </a>
                             </div>
                             <div className="text-cart">
-                                    <h5 className="txt-small">Giỏ hàng</h5>
-                                    <h4 className="txt-medium">
-                                        {this.props.Total}đ
+                                <h5 className="txt-small">Giỏ hàng</h5>
+                                <h4 className="txt-medium">
+                                    {this.props.Total}đ
                                         <i className="fas fa-sort-down"></i>
-                                    </h4>
+                                </h4>
                             </div>
                             <div className="list-cart">
                                 {displayItems}

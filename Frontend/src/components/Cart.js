@@ -150,7 +150,7 @@ class Cart extends Component {
                     <span>{item.Name}</span>
                 </div>
                 <div className="cart-price">
-                    <span>{item.Price * item.Quantity}đ</span>
+                    <span>{item.Price}</span>
                 </div>
                 <div className="cart-quantity">
                     <div className='quantity-sub'>
@@ -162,7 +162,7 @@ class Cart extends Component {
                 <div className="cart-remove">
                     <div className="list-delete">
                         {/* <i className="fas fa-trash" onClick={(event) => { this._Delete(item, event) }}></i> */}
-                        <button className="btn btn-danger" onClick={(event) => { this._Delete(item, event) }}>Remove</button>
+                        <button className="btn btn-danger" onClick={(event) => { this._Delete(item, event) }}>Xóa</button>
                     </div>
                 </div>
             </div>
@@ -174,7 +174,7 @@ class Cart extends Component {
                 <div className="cart-top">
                    <a href="/">Trang chủ</a>
                    <i className="fas fa-chevron-right"></i>
-                   <a href="/">Cart</a>
+                   <a href="/">Giỏ hàng</a>
                </div>
                     <div className="cart-bottom">
                         <div className="cart-bottom-left">
@@ -203,9 +203,9 @@ class Cart extends Component {
                             <div className="product-location">
                                 <div className="location-header">Địa chỉ giao hàng</div>
                                 <div className="location-info-2">
-                                    <div><i className="fas fa-user-check"></i>Khách hàng: {this.state.userInfo.Name}</div>
-                                    <div><i className="fas fa-map-marker"></i>Địa chỉ: {this.state.userInfo.Address}</div>
-                                    <div><i className="fas fa-mobile"></i>Số điện thoại: {this.state.userInfo.Phone}</div>
+                                    <div><i className="fas fa-user-check"></i>  Khách hàng: {this.state.userInfo.Name}</div>
+                                    <div><i className="fas fa-map-marker"></i>  Địa chỉ: {this.state.userInfo.Address}</div>
+                                    <div><i className="fas fa-mobile"></i>  Số điện thoại: {this.state.userInfo.Phone}</div>
                                 </div>
 
                             </div>
@@ -232,7 +232,7 @@ class Cart extends Component {
                                     <button className="voucher-apply btn btn-primary">Apply</button>
                                 </div> */}
                                 <div className="summary-total">
-                                    <div className="summary-total-left">Total:</div>
+                                    <div className="summary-total-left">Tổng:</div>
                                     <div className="summary-total-right">
                                         <div>{this.props.state.Total * 1.05}đ</div>
                                         <div>(đã bao gồm VAT)</div>

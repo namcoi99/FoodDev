@@ -30,7 +30,7 @@ class HomeContent extends Component {
     }
     getData = async (pageNumber) => {
         try {
-            const data = await fetch(`http://localhost:5000/filter/category?pageNumber=${pageNumber}&pageSize=4&category=${this.state.currentCategory}`,
+            const data = await fetch(`http://localhost:5000/filter/category?pageNumber=${pageNumber}&pageSize=5&category=${this.state.currentCategory}`,
             ).then((res) => { return res.json(); });
             this.setState({
                 total: data.data.total,
@@ -77,7 +77,13 @@ class HomeContent extends Component {
                 <div className="trending-item" data-aos="fade-right" data-aos-delay="500">
                     <div className="trending-item-img">
                         <a href={`/product/${item.ProductID}`} target="__blank">
-                            <img src={`http://localhost:5000/image/products/${item.Image}.png`} alt={item.Name} />
+                            <img src={`http://localhost:5000/image/products/${item.Image}.png`} alt={item.Name} 
+                            style={{
+                                backgroundPosition: 'center',
+                                backgroundRepeat: 'no-repeate',
+                                height: '300px',
+                                width: '100%'
+                            }}/>
                         </a>
                     </div>
                     <div className="trending-item-text">
@@ -88,11 +94,12 @@ class HomeContent extends Component {
                     <div className="trending-item-cost">
                         <span>{item.Price}đ</span>
                     </div>
+                    <div>Số lượng đã bán: {item.Sold}</div>
                     <a href='/' onClick={(event) => { this.props.addtoCart(item, 1, event) }}>
                         <div className="trending-item-expand">
                             <div className="expand-cart">
                                 <i className="fas fa-cart-plus"></i>
-                                <p>Add to cart</p>
+                                <p> Thêm vào giỏ hàng</p>
                             </div>
                         </div>
                     </a>
@@ -115,11 +122,12 @@ class HomeContent extends Component {
                     <div className="trending-item-cost">
                         <span>{item.Price}đ</span>
                     </div>
+                    <div>Số lượng đã bán: {item.Sold}</div>
                     <a href='/' onClick={(event) => { this.props.addtoCart(item, 1, event) }}>
                         <div className="trending-item-expand">
                             <div className="expand-cart">
                                 <i className="fas fa-cart-plus"></i>
-                                <p>Add to cart</p>
+                                <p>Thêm vào giỏ hàng</p>
                             </div>
                         </div>
                     </a>
@@ -163,7 +171,7 @@ class HomeContent extends Component {
                 {/* Trending  */}
                 <div className="trending-product">
                     <div className="trending-header">
-                        <h1>Trending products</h1>
+                        <h1>Sản phẩm bán chạy</h1>
                     </div>
                     <div className="trending-item-container" >
                         {Trending}
@@ -172,10 +180,10 @@ class HomeContent extends Component {
                 {/* main-menu */}
                 <div className="main-menu-2">
                     <div className="main-menu-header">
-                        <div className="main-menu-top">ALWAY TASTY FOOD</div>
+                        <div className="main-menu-top">VỊ NGON TRÊN TỪNG MÓNG TAY♪♫♪♫ </div>
                         <div className="main-menu-center">Choose & enjoy</div>
                         <div className="main-menu-bottom">
-                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus.
+                            Thực đơn gồm có Hamburger, Pizza và Milktea hảo hạng. Nhanh tay đặt hàng thôi.
                         </div>
                     </div>
                     {/* pagination */}
@@ -183,7 +191,8 @@ class HomeContent extends Component {
                         <div className="pagination-item pag-1"
                             onClick={() => {
                                 this.setState({
-                                    currentCategory: 'Pizza'
+                                    currentCategory: 'Pizza',
+                                    currentPageNumber: 1,
                                 });
                                 this.getData(1);
                             }} >
@@ -193,7 +202,8 @@ class HomeContent extends Component {
                         <div className="pagination-item pag-2"
                             onClick={() => {
                                 this.setState({
-                                    currentCategory: 'Hamburger'
+                                    currentCategory: 'Hamburger',
+                                    currentPageNumber: 1,
                                 });
                                 this.getData(1);
                             }} >
@@ -203,7 +213,8 @@ class HomeContent extends Component {
                         <div className="pagination-item pag-3"
                             onClick={() => {
                                 this.setState({
-                                    currentCategory: 'Milktea'
+                                    currentCategory: 'Milktea',
+                                    currentPageNumber: 1
                                 });
                                 this.getData(1);
                             }} >

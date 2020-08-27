@@ -26,13 +26,13 @@ class Footer extends Component {
                     </div>
                     <div className="top-footer-right">
                             <div className="top-footer-right-header">
-                                <h2>Contact Info</h2>
+                                <h2>Thông tin liên hệ</h2>
                             </div>
                             <div className="top-footer-right-content">
                                 <div className="info location">
                                     <i className="fas fa-map-marker-alt"></i>
                                     <div>
-                                        <h3>Our location</h3>
+                                        <h3>Địa chỉ</h3>
                                         <p>
                                             D9 508 Đại học Bách khoa Hà Nội
                                         </p>
@@ -41,7 +41,7 @@ class Footer extends Component {
                                 <div className="info phone">
                                     <i className="fas fa-phone"></i>
                                     <div>
-                                        <h3>Phones</h3>
+                                        <h3>Điện thoại</h3>
                                         <p>+84-0123-456-789</p>
                                     </div>
                                     

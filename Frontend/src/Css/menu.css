@@ -95,7 +95,7 @@
     
 }
 .trending-item:hover .trending-item-img img{
-    transform: scale(1.15);
+    transform: scale(1.05);
     transition-duration: 0.7s;
 }
 .trending-item:hover .trending-item-expand{
@@ -112,6 +112,7 @@
     text-align: center;
     color: #82AE47;
     margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 .trending-item-img img{
     width: 100%;
@@ -219,10 +220,10 @@
     /* transform: rotate3d(0,1,0,360deg);
     transition-duration: 0.8s;
     transition-property: all; */
-    animation-name: rotate-infi;
+    /* animation-name: rotate-infi;
     animation-duration: 2s;
     animation-iteration-count: infinite;
-    animation-delay: 0s;
+    animation-delay: 0s; */
 }
 
 @keyframes rotate-infi{
@@ -377,6 +378,7 @@ select:focus{
 .main-menu-display-container{
     width: 88%;
     margin: 0 auto;
+    padding-bottom: 50px;
 }
 
 .area-1{

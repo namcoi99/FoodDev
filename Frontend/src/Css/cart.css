@@ -121,6 +121,7 @@ margin-top: 3px;
     color: coral;
     margin-left: 10px;
     align-self: center;
+    text-align: center;
 }
 
 .cart-price span{
@@ -403,7 +404,7 @@ input[type=number] {
 .cart-price{
     width: 15%;
     color: coral;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     vertical-align: middle;
 }
 
@@ -415,6 +416,7 @@ input[type=number] {
 .cart-quantity{
     align-self: center;
     width: 20%;
+    padding: 0 50px 0 60px;
 }
 .cart-remove{
     width: 15%;

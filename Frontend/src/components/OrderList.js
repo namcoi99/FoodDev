@@ -39,7 +39,7 @@ class Order extends Component {
         const OrderList = this.state.orderDetails.map(item => (
             <div key={item.OrderID} className="orderlist-item" >
                 <a className="order-id" href={`/order-detail/${item.OrderID}`}>{item.OrderID}</a>
-                <div className="order-date">{item.CreateDate}</div>
+                <div className="order-date">{item.CreateDate.substr(0,10)}</div>
                 <div className="order-name">{item.Username}</div>
                 <div className="order-total">{item.Total}</div>
                 <div className="order-status">{item.Status}</div>
@@ -63,7 +63,7 @@ class Order extends Component {
                             <div className="orderlist-header">
                                 <div className="order-id">Mã đơn hàng</div>
                                 <div className="order-date">Ngày đặt hàng</div>
-                                <div className="order-name">Tên khách hàng</div>
+                                <div className="order-name">Khách hàng</div>
                                 <div className="order-total">Tổng giá trị</div>
                                 <div className="order-status">Trạng thái</div>
                             </div>

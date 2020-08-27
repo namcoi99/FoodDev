@@ -94,7 +94,7 @@
     
 }
 .trending-item:hover .trending-item-img img{
-    transform: scale(1.15);
+    transform: scale(1.05);
     transition-duration: 0.7s;
 }
 .trending-item:hover .trending-item-expand{
@@ -103,7 +103,13 @@
     display: block;
     transition: ease-in 3s;
 }
-
+.trending-item-text a{
+    color: tomato;
+}
+.trending-item-text a:hover{
+    color: tomato;
+    text-decoration: none;
+}
 .trending-item-text h2{
     margin-top: 15px;
     font-weight: bold;
@@ -113,6 +119,7 @@
     text-align: center;
     color: #82AE47;
     margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 .trending-item-img img{
     width: 100%;
@@ -225,10 +232,12 @@
     /* transform: rotate3d(0,1,0,360deg);
     transition-duration: 0.8s;
     transition-property: all; */
-    animation-name: rotate-infi;
+    /* animation-name: rotate-infi;
     animation-duration: 2s;
     animation-iteration-count: infinite;
-    animation-delay: 0s;
+    animation-delay: 0s; */
+    transform: scale(1.2);
+    transition-duration: 0.5s;
 }
 
 @keyframes rotate-infi{

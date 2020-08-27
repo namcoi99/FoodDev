@@ -18,8 +18,6 @@ import OrderListSearch from './components/OrderListSearch.js';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
-// Containers
-const DefaultLayout = React.lazy(() => import('./containers/DefaultLayout'));
 
 class App extends Component {
   state = {
@@ -50,7 +48,6 @@ class App extends Component {
       password: password
     })
       .then(response => {
-        // console.log(response)
         if (response.data.success !== false) {
           this.setState({
             username: response.data.username,
@@ -65,40 +62,41 @@ class App extends Component {
           alert("Wrong username or password");
         }
       })
+      .catch(err => console.log(err))
   }
 
-  _addtoCart = (item, quantity, event) => {
-    event.preventDefault();
-    const username = localStorage.getItem('username');
-    if (username) {
-      axios.post('/cart/add', {
-        username: username,
-        productID: item.ProductID,
-        quantity: quantity,
-        name: item.Name,
-        image: item.Image
-      })
-        .then(response => {
-          console.log(response.data.success)
-          axios.get(`/cart/${localStorage.getItem('username')}`)
-          .then(data => {
-            this.setState({
-              products: data.data.data
-            })
+_addtoCart = (item, quantity, event) => {
+  event.preventDefault();
+  const username = localStorage.getItem('username');
+  if (username) {
+    axios.post('/cart/add', {
+      username: username,
+      productID: item.ProductID,
+      quantity: quantity,
+      name: item.Name,
+      image: item.Image
+    })
+      .then(response => {
+        console.log(response.data.success)
+        axios.get(`/cart/${localStorage.getItem('username')}`)
+        .then(data => {
+          this.setState({
+            products: data.data.data
           })
-          .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
-        this.setState({
-          count: this.state.count + quantity,
-          Total: this.state.Total + item.Price*quantity
-        })
-        console.log(this.state)
-    }
-    else {
-      alert('You must log in first');
-    }
+      })
+      .catch(err => console.log(err));
+      this.setState({
+        count: this.state.count + quantity,
+        Total: this.state.Total + item.Price*quantity
+      })
+      console.log(this.state)
   }
+  else {
+    alert('You must log in first');
+  }
+}
 
   Decrease = (item,event) => {
     event.preventDefault();
@@ -116,24 +114,18 @@ class App extends Component {
       .then(response => {
         console.log(response.data.success)
       })
-      .catch(err => console.log(err));
-      axios.get(`/cart/${localStorage.getItem('username')}`)
-        .then(data => {
-          this.setState({
-            products: data.data.data
-          })
-        })
-        .catch(err => console.log(err));
-    }
+      .catch(err => console.log(err));  
+    } 
 }
 
 Increase = (item,event) => {
   event.preventDefault();
-  item.Quantity++;
-  this.setState({
-    count:this.state.count+1,
-    Total: this.state.Total+item.Price
-  })
+    item.Quantity++;
+    this.setState({
+      count:this.state.count+1,
+      Total: this.state.Total+item.Price
+    })
+    this.setState({Total:this.state.Total+item.Price});
   axios.post('/cart/update',{
       quantity:item.Quantity,
       username:localStorage.getItem('username'),
@@ -143,13 +135,6 @@ Increase = (item,event) => {
       console.log(response.data.success)
     })
   .catch(err => console.log(err));
-  axios.get(`/cart/${localStorage.getItem('username')}`)
-      .then(data => {
-        this.setState({
-          products: data.data.data
-        })
-      })
-      .catch(err => console.log(err));
 }
 
   render() {
@@ -158,12 +143,11 @@ Increase = (item,event) => {
         <BrowserRouter>
           <React.Suspense fallback={loading()}>
             <Switch>
-              {/* <Route path="/" name="Home" render={props => <DefaultLayout {...props} />} /> */}
               <Route exact path="/" render={(props) => {
                 return <Home {...props} addtoCart={this._addtoCart} state={this.state} />
               }} />
               <Route exact path="/signin" render={(props) => {
-                return <SignIn {...props} state={this.state} onLogin={this._onLogin} />
+                return <SignIn {...props} state={this.state} _onLogin={this._onLogin} />
               }} />
               <Route exact path="/product/:productID" render={(props) => {
                 return <Product {...props} addtoCart={this._addtoCart} state={this.state} />

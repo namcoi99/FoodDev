@@ -5,7 +5,7 @@ USE WebCSDL
 
 -- Table
 -- DROP TABLE [User]
---CREATE TABLE [User]
+CREATE TABLE [User]
 (
 	Name text,
 	Username varchar(20) UNIQUE NOT NULL,

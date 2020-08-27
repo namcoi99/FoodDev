@@ -92,9 +92,9 @@ class OrderDetail extends Component {
                             </div>
                             <div className="orderdetail-bottom-left-bottom">
                                 <div className="order-item-header">
-                                    <div className="header-name">Product</div>
-                                    <div className="header-price">Price</div>
-                                    <div className="header-quanity">Quantity</div>
+                                    <div className="header-name">Sản phẩm</div>
+                                    <div className="header-price">Đơn giá</div>
+                                    <div className="header-quanity">Số lượng</div>
                                 </div>
                                 {orderList}
                             </div>
@@ -132,7 +132,7 @@ class OrderDetail extends Component {
                                 </div>
 
                                 <div className="summary-total">
-                                    <div className="summary-total-left">Total:</div>
+                                    <div className="summary-total-left">Tổng:</div>
                                     <div className="summary-total-right">
                                         <div>{this.state.detail.Total}đ</div>
                                         <div>(đã bao gồm VAT)</div>

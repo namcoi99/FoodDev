@@ -54,7 +54,7 @@ class Product extends Component {
                                 <img src={`http://localhost:5000/image/products/${this.state.product.Image}.png`} alt="" />
                             </div>
                             <div className="product-bottom-left-share">
-                                <div className="fb-share-button" data-href="https://cooking.nytimes.com/recipes/1019428-karaage-japanese-fried-chicken" data-layout="button_count" data-size="small"><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" className="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+                            <div class="fb-share-button" data-href="https://www.foody.vn/ha-noi/citea-fun-tea-coffee-ta-quang-buu" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.foody.vn%2Fha-noi%2Fcitea-fun-tea-coffee-ta-quang-buu&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
                                 <a href={`https://twitter.com/intent/tweet?button_hashtag=food&ref_src=twsrc%5Etfw`} className="twitter-hashtag-button" data-url="https://developers.facebook.com/docs/sharing/messenger/web/" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
                             </div>
                         </div>
@@ -67,7 +67,7 @@ class Product extends Component {
                             <div className="product-option">
                                 <div>Số lượng đã bán: {this.state.product.Sold}</div>
                                 <div className="option-quantity">
-                                    <div>Quantity</div>
+                                    <div>Số lượng</div>
                                     <div className="quantity">
 
                                         <button type="button" onClick={this.Decrease} className="btn btn-dark"><i className="fas fa-minus" href="/"></i></button>
@@ -81,7 +81,7 @@ class Product extends Component {
                             <div className="product-purchase">
                                 <button onClick={(event) => { this.props.addtoCart(this.state.product, this.state.quantity, event) }} type="button" className="btn btn-primary add-to-cart" >
                                     <i className="fas fa-cart-plus"></i>
-                                    Add to cart
+                                    Thêm vào giỏ hàng
                                 </button>
                             </div>
                         </div>

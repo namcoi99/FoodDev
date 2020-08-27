@@ -17,13 +17,15 @@ class Menu extends Component {
             menu: true,
             activeField: [true, false, false],
             sortDirection: 1,
-            sortField: 'ProductID'
+            sortField: 'ProductID',
+
+            priceSort: 'Sắp xếp giá'
         }
-        this.handleSort('ProductID', 1,1)
+        this.handleSort('ProductID', 1, 1)
     }
 
     handlePageChange = (pageNumber) => {
-        this.handleSort(this.state.sortField, this.state.sortDirection,pageNumber);
+        this.handleSort(this.state.sortField, this.state.sortDirection, pageNumber);
         this.setState({
             currentPageNumber: pageNumber
         });
@@ -31,7 +33,7 @@ class Menu extends Component {
 
     handlePrevClick = () => {
         if (this.state.currentPageNumber > 1) {
-            this.handleSort(this.state.sortField, this.state.sortDirection,this.state.currentPageNumber - 1);
+            this.handleSort(this.state.sortField, this.state.sortDirection, this.state.currentPageNumber - 1);
             this.setState({
                 currentPageNumber: (this.state.currentPageNumber - 1)
             });
@@ -40,7 +42,7 @@ class Menu extends Component {
 
     handleNextClick = () => {
         if (this.state.currentPageNumber < this.state.maxPageNumber) {
-            this.handleSort(this.state.sortField, this.state.sortDirection,this.state.currentPageNumber + 1);
+            this.handleSort(this.state.sortField, this.state.sortDirection, this.state.currentPageNumber + 1);
             this.setState({
                 currentPageNumber: (this.state.currentPageNumber + 1)
             });
@@ -53,7 +55,7 @@ class Menu extends Component {
         })
     }
 
-    handleSort = (field, direction,pageNumber) => {
+    handleSort = (field, direction, pageNumber) => {
         console.log(field, direction);
         let active = [];
         if (field === 'ProductID') { active = [1, 0, 0]; }
@@ -120,7 +122,13 @@ class Menu extends Component {
                 <div className="trending-item" data-aos="fade-right" data-aos-delay="500">
                     <div className="trending-item-img">
                         <a href={`/product/${item.ProductID}`} target="__blank">
-                            <img src={`http://localhost:5000/image/products/${item.Image}.png`} alt={item.Name} />
+                            <img src={`http://localhost:5000/image/products/${item.Image}.png`} alt={item.Name}
+                                style={{
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeate',
+                                    height: '300px',
+                                    width: '100%'
+                                }} />
                         </a>
                     </div>
                     <div className="trending-item-text">
@@ -132,11 +140,11 @@ class Menu extends Component {
                         <span>{item.Price}đ</span>
                     </div>
                     <div>Số lượng đã bán: {item.Sold}</div>
-                    <a href='/menu' onClick={(event) => { this.props.addtoCart(item, 1, event) }}>
+                    <a href='/menuBurger' onClick={(event) => { this.props.addtoCart(item, 1, event) }}>
                         <div className="trending-item-expand">
                             <div className="expand-cart">
                                 <i className="fas fa-cart-plus"></i>
-                                <p>Add to cart</p>
+                                <p>Thêm vào giỏ hàng</p>
                             </div>
                         </div>
                     </a>
@@ -157,10 +165,10 @@ class Menu extends Component {
                     {/* main-menu */}
                     <div className="main-menu">
                         <div className="main-menu-header">
-                            <div className="main-menu-top">ALWAY TASTY FOOD</div>
-                            <div className="main-menu-center">Pizza</div>
+                            <div className="main-menu-top">VỊ NGON TRÊN TỪNG MÓNG TAY♪♫♪♫</div>
+                            <div className="main-menu-center">{this.state.currentCategory}</div>
                             <div className="main-menu-bottom">
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus.
+                                Được tạo nên từ những nguyên liệu thượng hạng.
                         </div>
                         </div>
 
@@ -175,7 +183,7 @@ class Menu extends Component {
                                             backgroundColor: "#f7462e"
                                         } : {}}
                                         onClick={(event) => {
-                                            this.handleSort('ProductID', 1,1);
+                                            this.handleSort('ProductID', 1, 1);
                                         }}>Sản phẩm</div>
                                     <div className="option-item"
                                         style={this.state.activeField[1] ? {
@@ -183,24 +191,48 @@ class Menu extends Component {
                                             backgroundColor: "#f7462e"
                                         } : {}}
                                         onClick={(event) => {
-                                            this.handleSort('Sold', 0,1);
+                                            this.handleSort('Sold', 0, 1);
                                         }}>Bán chạy</div>
                                     <div className="dropdown">
-                                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             style={this.state.activeField[2] ? {
                                                 color: "white",
-                                                backgroundColor: "#f7462e"
-                                            } : {}}>
-                                            Giá tăng dần
-                                            </button>
+                                                backgroundColor: "#f7462e",
+                                                width: "100%",
+                                                height: "60%",
+                                                marginRight: "10px",
+                                                cursor: "pointer",
+                                                textAlign: "center",
+                                                border: "#dae1e7",
+                                                borderRadius: "5px",
+                                                lineHeight: "36px"
+                                            } : {
+                                                    backgroundColor: "white",
+                                                    width: "100%",
+                                                    height: "60%",
+                                                    marginRight: "10px",
+                                                    cursor: "pointer",
+                                                    textAlign: "center",
+                                                    border: "#dae1e7",
+                                                    borderRadius: "5px",
+                                                    lineHeight: "36px"
+                                                }}>
+                                            {this.state.priceSort}
+                                        </button>
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <div className="dropdown-item"
                                                 onClick={(event) => {
-                                                    this.handleSort('Price', 1,1);
+                                                    this.setState({
+                                                        priceSort: "Giá tăng dần"
+                                                    });
+                                                    this.handleSort('Price', 1, 1);
                                                 }}>Giá tăng dần</div>
                                             <div className="dropdown-item"
                                                 onClick={(event) => {
-                                                    this.handleSort('Price', 0,1);
+                                                    this.setState({
+                                                        priceSort: "Giá giảm dần"
+                                                    });
+                                                    this.handleSort('Price', 0, 1);
                                                 }}>Giá giảm dần</div>
                                         </div>
                                     </div>
